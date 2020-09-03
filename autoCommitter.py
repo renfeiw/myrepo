@@ -13,31 +13,32 @@ def main():
     ap.add_argument("-r", "--replace", required=True, help="regex string to replace found")
     ap.add_argument("-m", "--message", required=True, help="commit message")
     ap.add_argument("-o", "--originURL", required=True, help="git origin repo")
+    ap.add_argument("-a", "--authentication", required=True, help="git authentication token")
     run(vars(ap.parse_args()))
 
 
 def run(args):
     print(f"Attempting to create auto PR against {args['originURL']}\n")
-#    workingPath = os.path.join(os.getcwd(), "tempRepo")
-#    removeDir(workingPath)
-#    originBranch = "autoBranch" + str(random.randint(0,10000))
-#    print("- getting material from remote")
-#    repo = setupRepo(workingPath, args["originURL"], originBranch)
+    workingPath = os.path.join(os.getcwd(), "tempRepo")
+    removeDir(workingPath)
+    originBranch = "autoBranch" + str(random.randint(0,10000))
+    print("- getting material from remote")
+    repo = setupRepo(workingPath, args["originURL"], originBranch, args["authentication"])
     print(f"- searching file {args['file']} in working branch")
     files = find_files(args["file"], ".")
     print(f"- updating file(s)")
     isUpdated = updateFiles(files, args["find"], args["replace"])
-#    if isUpdated:
-#        print(f"- commit and push change to remote")
-#        gitCommitPush(repo, originBranch, args["message"])
-#        print(f"- creating PR")
-#        return True
-#    else:
-#        print("abort: nothing to update\n")
-#        return False
-#    removeDir(workingPath)
-    
-    
+    if isUpdated:
+        print(f"- commit and push change to remote")
+        gitCommitPush(repo, originBranch, args["message"])
+        print(f"- creating PR")
+        return True
+    else:
+        print("abort: nothing to update\n")
+        return False
+    removeDir(workingPath)
+
+
 def removeDir(workingPath):
     path = Path(workingPath)
     if path.exists() and path.is_dir():
@@ -71,11 +72,14 @@ def updateFiles(files, find, replace):
                     print(f"updated {file}\n")
                     return True
     return False
-        
 
-def setupRepo(path, originURL, originBranch):
+
+def setupRepo(path, originURL, originBranch, token):
     repo = git.Repo.clone_from(originURL, path)
     print(f"cloned from origin {originURL}")
+
+    with repo.config_writer() as git_config:
+        git_config.set_value("user", "token", token)
 
     repo.git.branch(originBranch)
     repo.git.checkout(originBranch)
