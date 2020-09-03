@@ -18,23 +18,23 @@ def main():
 
 def run(args):
     print(f"Attempting to create auto PR against {args['originURL']}\n")
-    workingPath = os.path.join(os.getcwd(), "tempRepo")
-    removeDir(workingPath)
-    originBranch = "autoBranch" + str(random.randint(0,10000))
-    print("- getting material from remote")
-    repo = setupRepo(workingPath, args["originURL"], originBranch)
+#    workingPath = os.path.join(os.getcwd(), "tempRepo")
+#    removeDir(workingPath)
+#    originBranch = "autoBranch" + str(random.randint(0,10000))
+#    print("- getting material from remote")
+#    repo = setupRepo(workingPath, args["originURL"], originBranch)
     print(f"- searching file {args['file']} in working branch")
     files = find_files(args["file"], workingPath)
     print(f"- updating file(s)")
     isUpdated = updateFiles(files, args["find"], args["replace"])
-    if isUpdated:
-        print(f"- commit and push change to remote")
-        gitCommitPush(repo, originBranch, args["message"])
-        print(f"- creating PR")
-        return True
-    else:
-        print("abort: nothing to update\n")
-        return False
+#    if isUpdated:
+#        print(f"- commit and push change to remote")
+#        gitCommitPush(repo, originBranch, args["message"])
+#        print(f"- creating PR")
+#        return True
+#    else:
+#        print("abort: nothing to update\n")
+#        return False
 #    removeDir(workingPath)
     
     
