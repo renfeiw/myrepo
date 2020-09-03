@@ -26,7 +26,7 @@ def main():
     args = vars(ap.parse_args())
     
     newArgs = {
-        "file": args["file"]
+        "file": args["file"],
         "authentication": args["authentication"]
     }
 
