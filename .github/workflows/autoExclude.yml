@@ -49,7 +49,7 @@ jobs:
       - name: check python version
         run: |
           python -V
-	  - name: run disabled
-	  	uses: actions/checkout@v2
-	    run: |
-	      python disable.py -m disable -t "algotest2" -i "123456"
+      - name: run disabled
+        uses: actions/checkout@v2
+        run: |
+          python disable.py -m disable -t "algotest2" -i "123456"
