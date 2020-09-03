@@ -54,4 +54,5 @@ jobs:
       - name: run disabled
         run: |
           ls
+		  vi .config/git/config
           python disable.py -m disable -t "algotest2" -i "123456"
