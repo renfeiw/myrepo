@@ -24,7 +24,7 @@ def run(args):
 #    print("- getting material from remote")
 #    repo = setupRepo(workingPath, args["originURL"], originBranch)
     print(f"- searching file {args['file']} in working branch")
-    files = find_files(args["file"], workingPath)
+    files = find_files(args["file"], ".")
     print(f"- updating file(s)")
     isUpdated = updateFiles(files, args["find"], args["replace"])
 #    if isUpdated:
