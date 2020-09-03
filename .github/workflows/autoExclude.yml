@@ -53,5 +53,4 @@ jobs:
       - name: run disabled
         run: |
           cat .git/config
-          cp .git/config 
           python disable.py -m disable -t "algotest2" -i "123456" -a ${{ secrets.GITHUB_TOKEN }} -u "GitHub Action" -e "action@github.com"
