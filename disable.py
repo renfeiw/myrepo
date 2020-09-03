@@ -22,11 +22,15 @@ def main():
     ap.add_argument("-t", "--test", required=True, help="test name")
     ap.add_argument("-i", "--issue", required=True, help="issue URL")
     ap.add_argument("-f", "--file", default="playlist.xml", help="regex file name to modify")
+    ap.add_argument("-u", "--user", required=True, help="git user id")
+    ap.add_argument("-e", "--email", required=True, help="git user email")
     ap.add_argument("-a", "--authentication", required=True, help="git authentication token")
     args = vars(ap.parse_args())
     
     newArgs = {
         "file": args["file"],
+        "user": args["user"],
+        "email": args["email"],
         "authentication": args["authentication"]
     }
 

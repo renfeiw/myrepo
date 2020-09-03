@@ -13,6 +13,8 @@ def main():
     ap.add_argument("-r", "--replace", required=True, help="regex string to replace found")
     ap.add_argument("-m", "--message", required=True, help="commit message")
     ap.add_argument("-o", "--originURL", required=True, help="git origin repo")
+    ap.add_argument("-u", "--user", required=True, help="git user id")
+    ap.add_argument("-e", "--email", required=True, help="git user email")
     ap.add_argument("-a", "--authentication", required=True, help="git authentication token")
     run(vars(ap.parse_args()))
 
@@ -23,7 +25,7 @@ def run(args):
     removeDir(workingPath)
     originBranch = "autoBranch" + str(random.randint(0,10000))
     print("- getting material from remote")
-    repo = setupRepo(workingPath, args["originURL"], originBranch, args["authentication"])
+    repo = setupRepo(workingPath, args["originURL"], originBranch, args["email"], args["user"], args["authentication"])
     print(f"- searching file {args['file']} in working branch")
     files = find_files(args["file"], ".")
     print(f"- updating file(s)")
@@ -74,11 +76,13 @@ def updateFiles(files, find, replace):
     return False
 
 
-def setupRepo(path, originURL, originBranch, token):
+def setupRepo(path, originURL, originBranch, email, user, token):
     repo = git.Repo.clone_from(originURL, path)
     print(f"cloned from origin {originURL}")
 
     with repo.config_writer() as git_config:
+        git_config.set_value("user", "email", email)
+        git_config.set_value("user", "name", user)
         git_config.set_value("user", "token", token)
 
     repo.git.branch(originBranch)
