@@ -53,5 +53,5 @@ jobs:
         uses: actions/checkout@v2
       - name: run disabled
         run: |
-		  ls
+          ls
           python disable.py -m disable -t "algotest2" -i "123456"
