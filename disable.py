@@ -3,7 +3,7 @@ import argparse
 import re
 
 
-ORIGIN_OPENJ9 = "https://github.com/renfeiw/myrepo.git"
+ORIGIN_OPENJ9 = "github.com/renfeiw/myrepo.git"
 
 
 """
@@ -49,7 +49,7 @@ def disableTestInPlaylist(test, issue, args):
     
     rt = False
     args.update({
-        "originURL": ORIGIN_OPENJ9})
+        "originURL": f"https://{args["user"]}:{args["authentication"]}@{ORIGIN_OPENJ9}"})
     rt = autoCommitter.run(args)
 """
     args.update({
