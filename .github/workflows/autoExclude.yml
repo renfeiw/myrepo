@@ -56,7 +56,7 @@ jobs:
         run: |
           git config --list
           echo ${{ secrets.GITHUB_TOKEN }}
-          python disable.py -m disable -t "algotest2" -i "123456" -a ${{ secrets.GITHUB_TOKEN }}
+          python disable.py -m disable -t "algotest2" -i "123456" -a ${{ secrets.GITHUB_TOKEN }} -u ${{ github.event.comment.user.login }} -e renfeiw@ca.ibm.com
       - name: run disabled 2
         run: |
           git log
