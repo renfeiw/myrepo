@@ -97,7 +97,8 @@ def setupRepo(path, originURL, originBranch, email, user, token):
 
 
 def gitCommitPush(repo, originBranch, disableMsg):
-    changed = [ item.a_path for item in repo.index.diff(None) ] 
+    changed = [ item.a_path for item in repo.index.diff(None) ]
+    print(changed)
     if changed:
         repo.git.add(".")
         print(repo.git.commit("-s", "-m", disableMsg))
