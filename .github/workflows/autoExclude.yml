@@ -53,7 +53,7 @@ jobs:
       - name: run disabled
         run: |
           cat .git/config
-          python disable.py -m disable -t "algotest2" -i "123456" -a ${{ secrets.GITHUB_TOKEN }} -u "GitHub Action" -e "action@github.com"
+          python disable.py -m disable -t "algotest2" -i "123456" -a ${{ secrets.GITHUB_TOKEN }} -u "github-actions[bot]" -e "github-actions[bot]@users.noreply.github.com"
       - name: run disabled 2
         run: |
           git log
