@@ -51,9 +51,11 @@ jobs:
           python -V
       - uses: actions/checkout@v2
       - name: run disabled
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cat .git/config
-          python disable.py -m disable -t "algotest2" -i "123456" -a ${{ secrets.GITHUB_TOKEN }} -u "github-actions[bot]" -e "github-actions[bot]@users.noreply.github.com"
+          python disable.py -m disable -t "algotest2" -i "123456" -a "$GITHUB_TOKEN" -u ${{ github.event.comment.user.login }} -e renfeiw@ca.ibm.com
       - name: run disabled 2
         run: |
           git log
