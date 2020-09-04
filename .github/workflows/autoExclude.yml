@@ -51,8 +51,7 @@ jobs:
           python -V
       - uses: actions/checkout@v2
       - run: |
-          git clone https://${{ github.token }}@github.com/renfeiw/myrepo abc
-          git -c http.extraheader="AUTHORIZATION: basic ${{ github.token }}" clone https://github.com/renfeiw/myrepo abc
+          git clone https://${{ github.token }}@github.com/renfeiw/myrepo.git abc
           cd abc
           pwd
           date > generated.txt
