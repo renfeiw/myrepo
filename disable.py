@@ -49,7 +49,7 @@ def disableTestInPlaylist(test, issue, args):
     
     rt = False
     args.update({
-        "originURL": f"https://{args["user"]}:{args["authentication"]}@{ORIGIN_OPENJ9}"})
+        "originURL": f"https://{args['user']}:{args['authentication']}@{ORIGIN_OPENJ9}"})
     rt = autoCommitter.run(args)
 """
     args.update({
