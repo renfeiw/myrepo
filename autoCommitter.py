@@ -81,8 +81,6 @@ def setupRepo(path, originURL, originBranch, email, user, token):
     print(f"cloned from origin {originURL}")
 
     with repo.config_writer() as git_config:
-        git_config.set_value("user", "email", email)
-        git_config.set_value("user", "name", user)
         git_config.set_value("user", "token", token)
 
     repo.git.branch(originBranch)
