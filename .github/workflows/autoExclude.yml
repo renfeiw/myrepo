@@ -51,7 +51,7 @@ jobs:
           python -V
       - uses: actions/checkout@v2
       - run: |
-          git clone https://${{ github.token }}@github.com/renfeiw/myrepo.git abc
+          git clone https://github-actions:${{ github.token }}@github.com/renfeiw/myrepo.git abc
           cd abc
           pwd
           date > generated.txt
