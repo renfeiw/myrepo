@@ -1,11 +1,10 @@
 name: "auto exclude"
 on:
-  issue_comment:
-    types: [created]
+  repository_dispatch:
+    types: [opened]
 jobs:
   autoExclude:
     runs-on: ubuntu-latest
-    if: startsWith(github.event.comment.body, 'auto exclude test') && github.event_name != 'pull_request'
     steps:
       - name: comment
         run: echo "${{ github.event.comment.body }}"
@@ -50,17 +49,6 @@ jobs:
         run: |
           python -V
       - uses: actions/checkout@v2
-      - run: |
-          git clone https://github-actions:${{ github.token }}@github.com/renfeiw/myrepo.git abc
-          cd abc
-          pwd
-          date > generated.txt
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git config user.token ${{ github.token }}
-          git add .
-          git commit -m "generated"
-          git push
       - name: run disabled
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -68,6 +56,5 @@ jobs:
           git config --list
           echo ${{ secrets.GITHUB_TOKEN }}
           python disable.py -m disable -t "algotest2" -i "123456" -a ${{ github.token }} -u github-actions -e github-actions@github.com
-      - name: run disabled 2
-        run: |
-          git log
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
