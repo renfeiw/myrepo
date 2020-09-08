@@ -1,7 +1,7 @@
 name: "auto exclude"
 on:
   repository_dispatch:
-    types: [opened, deleted]
+    types: [disable_test]
 jobs:
   autoExclude:
     runs-on: ubuntu-latest
